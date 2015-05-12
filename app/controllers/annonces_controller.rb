@@ -1,5 +1,8 @@
 class AnnoncesController < ApplicationController
   before_action :set_annonce, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
+
 
   # GET /annonces
   # GET /annonces.json
@@ -14,7 +17,7 @@ class AnnoncesController < ApplicationController
 
   # GET /annonces/new
   def new
-    @annonce = Annonce.new
+    @annonce = current_user.annonces.build
   end
 
   # GET /annonces/1/edit
@@ -22,7 +25,7 @@ class AnnoncesController < ApplicationController
   end
 
   def create
-    @annonce = Annonce.new(annonce_params)
+    @annonce = current_user.annonces.build(annonce_params)
     if @annonce.save
       redirect_to @annonce, notice: 'Annonce créee.'
     else
@@ -49,8 +52,15 @@ def destroy
       @annonce = Annonce.find(params[:id])
     end
 
+    def correct_user
+      @annonce = current_user.annonces.find_by(id: params[:id])
+      redirect_to annonces_path, notice: "Not authorized to edit this annonce" if @annonce.nil?
+
+    end
+
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def annonce_params
-      params.require(:annonce).permit(:description)
+      params.require(:annonce).permit(:description, :image)
     end
 end

@@ -1,9 +1,14 @@
 <p id="notice"><%= notice %></p>
-
+<p>
+  <strong>Titre:</strong>
+  <%= @annonce.name %>
+</p>
 <p>
   <strong>Description:</strong>
   <%= @annonce.description %>
 </p>
 
-<%= link_to 'Edit', edit_annonce_path(@annonce) %> |
+<% if @annonce.user == current_user %>
+  <%= link_to 'Edit', edit_annonce_path(@annonce) %>
+<% end %>
 <%= link_to 'Back', annonces_path %>
