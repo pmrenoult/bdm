@@ -61,6 +61,6 @@ def destroy
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def annonce_params
-      params.require(:annonce).permit(:description, :image)
+      params.require(:annonce).permit(:description, :name, :image)
     end
 end
