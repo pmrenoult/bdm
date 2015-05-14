@@ -8,22 +8,27 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">La bourse des matériaux</a>
+      <%= link_to "La bourse des matériaux", root_path, class:"navbar-brand" %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav navbar-right">
-          <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "Annonces", annonces_path %></li>
-          <li><%= link_to "About", about_path %></li>
-          <li><%= link_to "Account Settings", edit_user_registration_path %></li>
-
+          <li><%= link_to "Catégories", categories_path %></li>
           <% if user_signed_in? %>
-            <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+            <li>
+              <%= link_to new_annonce_path do %>
+                <span class="glyphicon glyphicon-plus"></span> Nouvelle annonce
+              <% end %>
+            </li>
+            <li><%= link_to "Profil", edit_user_registration_path %></li>
+            <li><%= link_to "Déconnexion", destroy_user_session_path, method: :delete %></li>
           <% else %>
-            <li><%= link_to "Sign in", new_user_session_path %></li>
+            <li><%= link_to "S'enregistrer", new_user_session_path %></li>
           <% end %>
+          <li><%= link_to "About", about_path %></li>
+
       </ul>
     </div><!-- /.navbar-collapse -->
   </div>

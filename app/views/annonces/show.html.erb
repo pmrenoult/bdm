@@ -7,8 +7,14 @@
   <strong>Description:</strong>
   <%= @annonce.description %>
 </p>
-
+<p>
+  <strong>Date de création:</strong>
+  <%= @annonce.created_at %>
+</p>
 <% if @annonce.user == current_user %>
   <%= link_to 'Edit', edit_annonce_path(@annonce) %>
 <% end %>
 <%= link_to 'Back', annonces_path %>
+
+
+

@@ -7,7 +7,7 @@ class AnnoncesController < ApplicationController
   # GET /annonces
   # GET /annonces.json
   def index
-    @annonces = Annonce.all
+  @annonces = Annonce.all
   end
 
   # GET /annonces/1
@@ -18,14 +18,18 @@ class AnnoncesController < ApplicationController
   # GET /annonces/new
   def new
     @annonce = current_user.annonces.build
+    @categories = Category.all.map{|c| [ c.name, c.id ] }
+
   end
 
   # GET /annonces/1/edit
   def edit
+    @categories = Category.all.map{|c| [ c.name, c.id ] }
   end
 
   def create
     @annonce = current_user.annonces.build(annonce_params)
+    @annonce.category_id = params[:category_id]
     if @annonce.save
       redirect_to @annonce, notice: 'Annonce créee.'
     else
@@ -34,6 +38,7 @@ class AnnoncesController < ApplicationController
   end
 
   def update
+    @annonce.category_id = params[:category_id]
     if @annonce.update(annonce_params)
       redirect_to @annonce, notice: 'Annonce modifiée.'
     else
