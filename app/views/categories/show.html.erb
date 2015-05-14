@@ -1,12 +1,10 @@
-<p id="notice"><%= notice %></p>
-
 <h1><%= @category.name %></h1>
 <h1><small><%= @category.desc %></small></h1>
 <br/>
 <h3> Annonces appartenant à cette catégorie </h3>
 <% Annonce.where(category_id: @category.id).each do |annonce| %>
-<li> <%= annonce.name %> </li>
+<li><%= link_to annonce.name, annonce %></li>
 <% end %>
-
-<%= link_to 'Edit', edit_category_path(@category) %> |
+<br/>
+<%= link_to 'Edit category', edit_category_path(@category) %> |
 <%= link_to 'Back', categories_path %>

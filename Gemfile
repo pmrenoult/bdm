@@ -25,6 +25,8 @@ gem 'bootstrap-sass'
 
 gem 'devise'
 
+gem 'geocoder'
+
 group :development, :test do
      gem 'sqlite3'
 end

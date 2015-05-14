@@ -2,9 +2,13 @@
   <div class="container">
 		<h1>Bienvenue</h1>
 		<% if user_signed_in? %>
-		          # do something
+			<blockquote>
+			  <p>Toujours frais, je reste à la surface,</p>
+			  <p>Comme les glaçons dans mon Chivas.</p>
+			  <footer>Booba dans <cite title="Source Title">Mr. Kopp (D.U.C)</cite></footer>
+			</blockquote>
 		     <% else %>
-		     		<p>Donnons une seconde vie à tous les matériaux de construction</p>
+		     		<p>Donnons une seconde vie à tous les matériaux de construction. </p><br/>
 		       <p>
 		         <%= link_to "Connexion", new_user_session_path, class: "btn btn-default btn-lg" %>
 		         <%= link_to "S'enregistrer", new_user_registration_path, class: "btn btn-primary btn-lg" %>

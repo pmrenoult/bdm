@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Toutes les annonces</h1>
 
 <table class="table">
@@ -19,7 +17,7 @@
         <td><%= annonce.name %></td>
         <td><%= annonce.description %></td>
         <td><%= link_to Category.find(annonce.category_id).name, category_path(annonce.category_id) if annonce.category_id %></td>
-        <td><%= annonce.user.email if annonce.user %></td>
+        <td><%= annonce.user.name if annonce.user.name %></td>
         <td><%= link_to 'Show', annonce %></td>
         <% if annonce.user == current_user %>
           <td><%= link_to 'Edit', edit_annonce_path(annonce) %></td>
@@ -30,10 +28,4 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<% if user_signed_in? %>
-  <%= link_to 'Nouvelle annonce', new_annonce_path %>
-<% end %>
 

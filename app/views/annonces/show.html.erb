@@ -1,19 +1,33 @@
-<p>
-  <strong>Titre:</strong>
-  <%= @annonce.name %>
-</p>
-<p>
-  <strong>Description:</strong>
-  <%= @annonce.description %>
-</p>
-<p>
-  <strong>Date de création:</strong>
-  <%= @annonce.created_at %>
-</p>
-<% if @annonce.user == current_user %>
-  <%= link_to 'Edit', edit_annonce_path(@annonce) %>
-<% end %>
 <%= link_to 'Back', annonces_path %>
+
+<div class="row">
+  <div class="col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	    	<h2><%= @annonce.name %></h2>
+      </div>
+      <div class="panel-body">
+        <p><%= @annonce.description %></p><br/>
+        <p>Crée le <%= @annonce.created_at %></p>
+
+        <p><%= @annonce.user.name if @annonce.user.name %></p>
+        <p><%= @annonce.user.email if @annonce.user %></p>
+
+        <% if @annonce.user == current_user %>
+		      <%= link_to edit_annonce_path(@annonce) do %>
+		        <span class="glyphicon glyphicon-edit"></span>
+		        Edit
+		      <% end %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 
 
