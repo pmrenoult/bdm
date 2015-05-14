@@ -25,7 +25,7 @@
             <li><%= link_to "Profil", edit_user_registration_path %></li>
             <li><%= link_to "Déconnexion", destroy_user_session_path, method: :delete %></li>
           <% else %>
-            <li><%= link_to "S'enregistrer", new_user_session_path %></li>
+            <li><%= link_to "Connexion", new_user_session_path %></li>
           <% end %>
           <li><%= link_to "About", about_path %></li>
 
