@@ -1,3 +1,10 @@
+<%= form_tag(annonces_path, :method => "get", class: "navbar-form navbar-right", id: "search-form") do %>
+<div class="form-group">
+  <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Recherche" %>
+  <button class="btn btn-default" type="submit">Envoi</i></button>
+</div>
+<% end %>
+
 <h1>Toutes les annonces</h1>
 
 <table class="table">

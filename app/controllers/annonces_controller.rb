@@ -7,8 +7,15 @@ class AnnoncesController < ApplicationController
   # GET /annonces
   # GET /annonces.json
   def index
-  @annonces = Annonce.all
+  #@annonces = Annonce.all
+
+    if params[:search]
+      @annonces = Annonce.search(params[:search]).order("created_at DESC")
+    else
+      @annonces = Annonce.order("created_at DESC")
+    end
   end
+
 
   # GET /annonces/1
   # GET /annonces/1.json
