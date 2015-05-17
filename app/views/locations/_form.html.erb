@@ -13,17 +13,38 @@
 
   <div class="field">
     <%= f.label :adress %><br>
-    <%= f.text_field :adress %>
+    <%= f.text_field :adress, id: 'gmaps-input-address', placeholder: 'bla bla' %>
   </div>
-  <div class="field">
+
+  <div id='input'>
+    <input id='gmaps-input-address' 
+           placeholder='Start typing a place name...'
+           type='text' />
+    <br/>
+    <br/>
+    Latitude: <span id='gmaps-output-latitude'></span>
+    <br/>
+    Longitude: <span id='gmaps-output-longitude'></span>
+    <br/>
+
+    <div id='gmaps-error'></div>
+  </div>
+
+
+
+<!--   <div class="field">
     <%= f.label :latitude %><br>
     <%= f.text_field :latitude %>
   </div>
   <div class="field">
     <%= f.label :longitude %><br>
     <%= f.text_field :longitude %>
-  </div>
+  </div> -->
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+
+<div id='gmaps-canvas'></div>
+

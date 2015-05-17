@@ -15,10 +15,21 @@
   <%= @location.longitude %>
 </p>
 
-<h1>Google Maps</h1>
-<div id="map-container">
-  <div id="map-canvas"></div>
-</div>
+   <div id='input'>
+      <input id='gmaps-input-address' 
+             placeholder='Start typing a place name...'
+             type='text' />
+      <br/>
+      <br/>
+      Latitude: <span id='gmaps-output-latitude'></span>
+      <br/>
+      Longitude: <span id='gmaps-output-longitude'></span>
+      <br/>
+
+      <div id='gmaps-error'></div>
+    </div>
+
+    <div id='gmaps-canvas'></div>
 
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>
