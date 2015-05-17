@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<strong>Adress:</strong>
 <p>
-  <strong>Adress:</strong>
   <%= @location.adress %>
 </p>
 
@@ -15,21 +15,18 @@
   <%= @location.longitude %>
 </p>
 
-   <div id='input'>
-      <input id='gmaps-input-address' 
-             placeholder='Start typing a place name...'
-             type='text' />
-      <br/>
-      <br/>
-      Latitude: <span id='gmaps-output-latitude'></span>
-      <br/>
-      Longitude: <span id='gmaps-output-longitude'></span>
-      <br/>
+<script type="text/javascript">
+	$(document).ready(function() { 
+	  if( $('#map').length  ) {
+	    // var location = '<%= @location.to_json %>'   // pass ruby variable to javascript
+	    gmap_show('<%= @location.latitude %>','<%= @location.longitude %>');
+	  }; 
+	});
+</script>
 
-      <div id='gmaps-error'></div>
-    </div>
+<div id='map'></div>
 
-    <div id='gmaps-canvas'></div>
+
 
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>
