@@ -23,7 +23,7 @@
       <tr>
         <td><%= annonce.name %></td>
         <td><%= annonce.description %></td>
-        <td><%= link_to Category.find(annonce.category_id).name, category_path(annonce.category_id) if annonce.category_id %></td>
+        <td><%= link_to Category.find(annonce.category_id).name, category_path(annonce.category_id) if (annonce.category_id != nil) %></td>
         <td><%= annonce.user.name if annonce.user.name %></td>
         <td><%= link_to 'Show', annonce %></td>
         <% if annonce.user == current_user %>
@@ -36,3 +36,18 @@
   </tbody>
 </table>
 
+<div class="center">
+   <%= will_paginate @annonces, renderer: BootstrapPagination::Rails %>
+</div>
+
+<div id="map"></div>
+
+<script type="text/javascript">
+  handler = Gmaps.build('Google');
+  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+    markers = handler.addMarkers(<%=raw @hash.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+  });
+</script>
+<br/>

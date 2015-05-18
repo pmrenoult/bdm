@@ -10,11 +10,23 @@ class AnnoncesController < ApplicationController
   #@annonces = Annonce.all
 
     if params[:search]
-      @annonces = Annonce.search(params[:search]).order("created_at DESC")
+      @annonces = Annonce.search(params[:search]).order("created_at DESC").paginate(:page => params[:page], :per_page => 8)
+      @hash = Gmaps4rails.build_markers(@annonces) do |annonce, marker|
+        marker.lat annonce.latitude
+        marker.lng annonce.longitude
+        marker.title annonce.name
+      end
     else
-      @annonces = Annonce.order("created_at DESC")
+      @annonces = Annonce.order("created_at DESC").paginate(:page => params[:page], :per_page => 8)
+      @hash = Gmaps4rails.build_markers(@annonces) do |annonce, marker|
+        marker.lat annonce.latitude
+        marker.lng annonce.longitude
+        marker.title annonce.name
+      end
     end
   end
+
+
 
 
   # GET /annonces/1
@@ -73,6 +85,6 @@ def destroy
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def annonce_params
-      params.require(:annonce).permit(:description, :name, :image)
+      params.require(:annonce).permit(:description, :name, :image, :address, :latitude, :longitude, :category_id)
     end
 end

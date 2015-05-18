@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516102854) do
+ActiveRecord::Schema.define(version: 20150517214352) do
 
   create_table "annonces", force: :cascade do |t|
     t.string   "description"
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(version: 20150516102854) do
     t.integer  "user_id"
     t.string   "name"
     t.string   "category_id"
+    t.string   "address"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "annonces", ["user_id"], name: "index_annonces_on_user_id"

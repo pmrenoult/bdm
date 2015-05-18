@@ -1,14 +1,29 @@
 <%= link_to 'Retour', annonces_path %>
 
 <div class="row">
-  <div class="col-md-offset-2 col-md-8">
-    <div class="panel panel-default">
+<!--   <div class="col-md-offset-2 col-md-8">
+ -->    <div class="panel panel-default">
       <div class="panel-heading">
 	    	<h2><%= @annonce.name %></h2>
       </div>
       <div class="panel-body">
         <p><%= @annonce.description %></p><br/>
         <p>Crée le <%= @annonce.created_at %></p>
+
+        <strong>Adress:</strong>
+        <p>
+          <%= @annonce.address %>
+        </p>
+
+        <p>
+          <strong>Latitude:</strong>
+          <%= @annonce.latitude %>
+        </p>
+
+        <p>
+          <strong>Longitude:</strong>
+          <%= @annonce.longitude %>
+        </p>
 
         <p><%= @annonce.user.name if @annonce.user.name %></p>
         <p><%= @annonce.user.email if @annonce.user %></p>
@@ -22,12 +37,24 @@
 
       </div>
     </div>
-  </div>
+<!--   </div>
+ -->
+
 </div>
 
+<div class="row">
+  <script type="text/javascript">
+    $(document).ready(function() { 
+      if( $('#map').length  ) {
+        // var location = '<%= @location.to_json %>'   // pass ruby variable to javascript
+        gmap_show('<%= @annonce.latitude %>','<%= @annonce.longitude %>');
+      }; 
+    });
+  </script>
 
+  <div id='map'></div>
 
+</div>
 
-
-
+</br>
 
