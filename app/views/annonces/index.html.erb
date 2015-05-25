@@ -9,6 +9,7 @@
               function initialize() {
                 var myOptions = {
                   zoom: 5,
+                  maxZoom: 15,
                   center: new google.maps.LatLng(0, 0),
                   panControl:false,
                   zoomControl:true,
@@ -73,13 +74,26 @@
                   var annonce = locations[i];
                   var myLatLng = new google.maps.LatLng(annonce.lat, annonce.lng);
                   // alert(myLatLng);
+                  
+                  var contentString = "test";
+                  
+                  var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                  });
 
                   var marker = new google.maps.Marker({
                     position: myLatLng,
                     map: map,
                     title: annonce.marker_title
-                    // zIndex: annonce[3]
                   });
+
+                  google.maps.event.addListener(marker, 'click', (function(mm, tt) {
+                      return function() {
+                          infowindow.setContent(tt);
+                          infowindow.open(map, mm);
+                      }
+                  })(marker, annonce.marker_title));
+
                   // latlngbounds.extend(myLatLng);
 
                   bounds.extend(myLatLng);
@@ -100,6 +114,8 @@
               // }
               google.maps.event.addDomListener(window, 'resize', initialize);
               google.maps.event.addDomListener(window, 'load', initialize);
+              google.maps.event.addDomListener(window, 'page:load', initialize);
+
 
             </script>
 
@@ -109,7 +125,7 @@
 
         <div class="col-sm-6 col-sm-offset-6 col-md-6 col-md-offset-6 main">
 
-          <%= form_tag(annonces_path, :method => "get", class: "navbar-form navbar-right", id: "search-form") do %>
+          <%= form_tag(annonces_path, :method => "get", class: "form-group", id: "search-form") do %>
               <!-- <div class="form-group">
                 <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Recherche" %>
                 <button class="btn btn-default" type="submit">Envoi</i></button>
@@ -126,22 +142,32 @@
 <!--               <h1>Toutes les annonces</h1>
  -->
               <% @annonces.each do |annonce| %>
+
                 <div class="panel panel-default">
+                  <div class="panel-heading"><h4><%= link_to annonce.name, annonce %></h4></div>
                   <div class="panel-body">
-                    <h3><%= link_to annonce.name, annonce %></h3>
                     <p><%= annonce.description %></p>
-                    <p><%= link_to Category.find(annonce.category_id).name, category_path(annonce.category_id) if (annonce.category_id != nil) %></p>
-                    <p><%= annonce.user.name if annonce.user.name %></p>
 <!--                     <p><%= link_to 'Show', annonce %></p>
- -->                  <% if annonce.user == current_user %>
-                      <%= link_to edit_annonce_path(annonce) do %>
-                        <span class="glyphicon glyphicon-edit"></span>
-                      <% end %>
-      <!--               <td><%= link_to 'Edit', edit_annonce_path(annonce) %></td>
-       -->              
-                    <%= link_to 'Destroy', annonce, method: :delete, data: { confirm: 'Are you sure?' } %>
-                  <% end %>
+ -->                  
                   </div>
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <button type="button" class="btn btn-default btn-sm">
+                        <%= link_to Category.find(annonce.category_id).name, category_path(annonce.category_id) if (annonce.category_id != nil) %>
+                      </button></li>
+                    <li class="list-group-item text-right">Crée le <%= annonce.created_at.strftime("%d %B %Y à %I:%M %p") %> par <%= annonce.user.name if annonce.user.name %></li>                    
+                    <% if annonce.user == current_user %>
+                      <li class="list-group-item text-right">
+                        <%= link_to edit_annonce_path(annonce) do %>
+                          <span class="glyphicon glyphicon-edit"></span>
+                        <% end %>
+                        <%= link_to annonce, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                          <span class="glyphicon glyphicon-remove"></span>
+
+                        <% end %>
+                      </li>
+                    <% end %>
+                  </ul>
                 </div>
               <% end %>
 
