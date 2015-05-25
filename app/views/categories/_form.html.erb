@@ -1,4 +1,5 @@
-<%= form_for(@category) do |f| %>
+<%= form_for @category, html: { multipart: true } do |f| %>
+
   <% if @category.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h2>
@@ -18,6 +19,10 @@
   <div class="form-group">
     <%= f.label :description %><br>
     <%= f.text_area :desc, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :image %>
+    <%= f.file_field :image, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.submit class: "btn btn-primary" %>

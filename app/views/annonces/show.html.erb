@@ -44,15 +44,34 @@
 
 <div class="row">
   <script type="text/javascript">
-    $(document).ready(function() { 
-      if( $('#map').length  ) {
-        // var location = '<%= @location.to_json %>'   // pass ruby variable to javascript
-        gmap_show('<%= @annonce.latitude %>','<%= @annonce.longitude %>');
-      }; 
-    });
+
+    var map;
+
+    function initialize() {
+      var mapOptions = {
+        zoom: 15,
+        // center: new google.maps.LatLng('<%= @annonce.latitude %>', '<%= @annonce.longitude %>')
+        center: new google.maps.LatLng('<%= @annonce.latitude %>', '<%= @annonce.longitude %>')
+
+      };
+      map = new google.maps.Map(document.getElementById('map-show-canvas'),
+          mapOptions);
+
+
+      var marqueur = new google.maps.Marker({
+      position: new google.maps.LatLng('<%= @annonce.latitude %>', '<%= @annonce.longitude %>'),
+      map: map
+      });
+    
+
+
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
   </script>
 
-  <div id='map'></div>
+  <div id='map-show-canvas'></div>
 
 </div>
 

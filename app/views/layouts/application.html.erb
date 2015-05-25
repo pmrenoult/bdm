@@ -6,37 +6,47 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <script type="text/javascript"
-          src="http://maps.google.com/maps/api/js?v=3.13&sensor=false&libraries=geometry">
+          src="http://maps.google.com/maps/api/js?v=3.13&sensor=false&libraries=geometry&libraries=places">
   </script>
 
-    <script type="text/javascript"
+  <script type="text/javascript"
           src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js">
   </script>
 
-  <!-- jquery -->
+  <!-- jquery x  
+
   <script type="text/javascript"
           src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
   </script>
+  -->
 
   <!-- jquery UI -->
   <script type="text/javascript"
           src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js">
   </script>
 
+
   <!-- our javascript -->
   <script type="text/javascript" src="assets/js/gmaps/gmaps.js"></script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body data-no-turbolink>
 <%= render 'layouts/header' %>
-<div class="container">
+<div class="container-fluid">
 	<% flash.each do |name, msg| %>
      <%= content_tag(:div, msg, class: "alert alert-info") %>
 	<% end %>
 
 	<%= yield %>
 </div>
+
+<script>
+$.getScript('/assets/You_Js_File_name',function(){
+                $(document).ready(ready); //calls for the function we defined above (first loading)
+                $(document).on('page:load',ready); // the same but for the other loadings
+              });
+</script>
 
 </body>
 </html>
