@@ -11,27 +11,35 @@ class AnnoncesController < ApplicationController
 
     if params[:search]
       @annonces = Annonce.search(params[:search]).order("created_at DESC").paginate(:page => params[:page], :per_page => 8)
-      @hash = Gmaps4rails.build_markers(@annonces) do |annonce, marker|
-        marker.lat annonce.latitude
-        marker.lng annonce.longitude
-        marker.title annonce.name
-      end
+      # @hash = Gmaps4rails.build_markers(@annonces) do |annonce, marker|
+      #   marker.lat annonce.latitude
+      #   marker.lng annonce.longitude
+      #   marker.title annonce.name
+      # end
     else
       @annonces = Annonce.order("created_at DESC").paginate(:page => params[:page], :per_page => 8)
-      @hash = Gmaps4rails.build_markers(@annonces) do |annonce, marker|
-        marker.lat annonce.latitude
-        marker.lng annonce.longitude
-        marker.title annonce.name
-      end
+      # @hash = Gmaps4rails.build_markers(@annonces) do |annonce, marker|
+      #   marker.lat annonce.latitude
+      #   marker.lng annonce.longitude
+      #   marker.title annonce.name
+      # end
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: @annonces.as_json } 
     end
   end
-
-
-
 
   # GET /annonces/1
   # GET /annonces/1.json
   def show
+    @annonce = Annonce.find(params[:id])
+    respond_to do |format|
+      format.html
+      # format.json { render json: @annonce.as_json(only: [:id]) }
+      format.json { render json: @annonce.as_json }
+
+    end
   end
 
   # GET /annonces/new

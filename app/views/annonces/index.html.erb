@@ -39,7 +39,10 @@
             //   ['Maroubra Beach', 54, 5, 1]
             // ];
 
-              var annonces_json = <%= raw @hash.to_json %>;
+              // var annonces_json = <%= raw @hash.to_json %>;
+
+              var annonces_json = <%= raw @annonces.to_json(:only => [ :id, :name, :latitude, :longitude ]) %>;
+
 
               // var test = annonces_json[7];
 
@@ -72,7 +75,7 @@
                 for (var i = 0; i < locations.length; i++) {
                 // for (var i = 0; i < 10; i++) {
                   var annonce = locations[i];
-                  var myLatLng = new google.maps.LatLng(annonce.lat, annonce.lng);
+                  var myLatLng = new google.maps.LatLng(annonce.latitude, annonce.longitude);
                   // alert(myLatLng);
                   
                   var contentString = "test";
@@ -84,7 +87,7 @@
                   var marker = new google.maps.Marker({
                     position: myLatLng,
                     map: map,
-                    title: annonce.marker_title
+                    title: annonce.name
                   });
 
                   google.maps.event.addListener(marker, 'click', (function(mm, tt) {
@@ -92,7 +95,7 @@
                           infowindow.setContent(tt);
                           infowindow.open(map, mm);
                       }
-                  })(marker, annonce.marker_title));
+                  })(marker, annonce.name));
 
                   // latlngbounds.extend(myLatLng);
 
@@ -141,10 +144,14 @@
 
 <!--               <h1>Toutes les annonces</h1>
  -->
+
+
               <% @annonces.each do |annonce| %>
 
-                <div class="panel panel-default">
-                  <div class="panel-heading"><h4><%= link_to annonce.name, annonce %></h4></div>
+                <div class="panel panel-default" id=<%= annonce.id %>>
+                  <div class="panel-heading"><h4><%= link_to annonce.name, annonce %></h4>
+                  <p><%= @annonces.to_json(:only => [ :id, :name, :latitude, :longitude ]) %></p>
+                  </div>
                   <div class="panel-body">
                     <p><%= annonce.description %></p>
 <!--                     <p><%= link_to 'Show', annonce %></p>
